@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 if (user_given_passWord.equals(array_pass[i])) {
 
                     //using sharedPreference to save name and email
-
                     myEdit.putString("uname", array_name[i]);
                     myEdit.putString("email", array_email[i]);
                     myEdit.commit();
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //notification
+        //notification starts here
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);

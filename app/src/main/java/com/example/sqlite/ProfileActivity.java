@@ -69,8 +69,8 @@ public class ProfileActivity extends AppCompatActivity {
                 //mydb.updateProfile(name1,pass1,email1,mob1);
 
                 SQLiteDatabase db = mydb.getWritableDatabase();
-                //db.execSQL("update registration_table set EMAIL="+"'"+email1+"'"+ " where NAME="+"'"+name1+"'");
-                db.execSQL("update registration_table set NAME="+"'"+name1+"',"+"EMAIL="+"'"+email1+"'"+ " where NAME="+"'"+name1+"'");
+                db.execSQL("update registration_table set EMAIL="+"'"+email1+"'"+ " where NAME="+"'"+name1+"'");
+                //db.execSQL("update registration_table set NAME="+"'"+name1+"',"+"EMAIL="+"'"+email1+"'"+ " where NAME="+"'"+name1+"'");
 
                 View contextView = findViewById(R.id.context_view);
                 Snackbar.make(contextView, "Details Updated", Snackbar.LENGTH_SHORT).show();

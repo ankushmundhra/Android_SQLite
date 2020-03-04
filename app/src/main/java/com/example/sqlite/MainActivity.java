@@ -3,10 +3,16 @@ package com.example.sqlite;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.TintableImageSourceView;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase mDatabase;
     public static final String DATABASE_NAME = "Registration.db";
     SharedPreferences sharedPreferences;
+
+    //Notification
+    NotificationManager notificationManager;
+    String channelId = "some_channel_id";
+    CharSequence channelName = "Some Channel";
+    int notifyId = 1;
+    Notification notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +112,29 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Wrong Password!",Toast.LENGTH_SHORT).show();
             }
         }
+
+        //notification
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
+        notificationChannel.enableLights(true);
+        notificationChannel.setLightColor(Color.RED);
+//        notificationChannel.setSound(null,null);
+        notificationChannel.enableVibration(true);
+//            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+        notificationManager.createNotificationChannel(notificationChannel);
+
+        String groupId = "some_group_id";
+        CharSequence groupName = "Some Group";
+        notificationManager.createNotificationChannelGroup(new NotificationChannelGroup(groupId, groupName));
+
+        notification = new Notification.Builder(MainActivity.this,channelId)
+                .setContentTitle("Uploading...")
+                .setContentText("is being uploaded!")
+                .setSmallIcon(R.mipmap.bell)
+                .build();
+
+        notificationManager.notify(notifyId, notification);
 
     }
 
